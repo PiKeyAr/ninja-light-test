@@ -15,7 +15,7 @@ NJS_LIGHT   lightd;
 Sint32  xx,yy,zz = 0;
 const char* modename[]={ "TWO LIGHTS", "SIMPLE", "EASY" };
 Uint8 mode=0;
-Sint8 selection = 0;
+Sint8 selection = 0; 
 bool show_true_dir = false;
 bool hide_text = false;
 
