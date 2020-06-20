@@ -1,0 +1,15 @@
+	.EXPORT		_vbuf
+	.EXPORT		_matrix
+	.SECTION	B32,32,1,3
+
+	.ALIGN		32
+_vbuf:
+	.SPACE		(4096*96)
+
+	.ALIGN		32
+_matrix:
+	.SPACE		(4*16*8)
+
+
+	.ALIGN		4
+	.END
