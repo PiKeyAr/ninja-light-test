@@ -15,7 +15,7 @@ NJS_LIGHT   lightd;
 Sint32  xx,yy,zz = 0;
 const char* modename[]={ "TWO LIGHTS", "SIMPLE", "EASY" };
 Uint8 mode=0;
-Sint8 selection = 0; 
+Sint8 selection = 0;
 bool show_true_dir = false;
 bool hide_text = false;
 
@@ -85,8 +85,8 @@ void Input(const PDS_PERIPHERAL* pad)
     }
     else if (mode == 1)
     {
-        if (selection < 0) selection = 8;
-        if (selection > 8) selection = 0;
+        if (selection < 0) selection = 5;
+        if (selection > 5) selection = 0;
     }
     else if (mode == 2)
     {
@@ -138,15 +138,9 @@ void Input(const PDS_PERIPHERAL* pad)
             if      (selection == 0)  simple_x += valueadd;
             else if (selection == 1)  simple_y += valueadd;
             else if (selection == 2)  simple_z += valueadd;
-            else if (selection == 3)  simple_r += valueadd;
-            else if (selection == 4)  simple_g += valueadd;
-            else if (selection == 5)  simple_b += valueadd;
-            else if (selection == 6)  simple_a += valueadd;
-            else if (selection == 7)  simple_d += valueadd;
-            else if (selection == 8)  simple_s += valueadd;
-            if (simple_r < 0) simple_r = 1;
-            if (simple_g < 0) simple_g = 1;
-            if (simple_b < 0) simple_b = 1;
+            else if (selection == 3)  simple_a += valueadd;
+            else if (selection == 4)  simple_d += valueadd;
+            else if (selection == 5)  simple_s += valueadd;
             if (simple_a < 0) simple_a = 1;
             if (simple_d < 0) simple_d = 1;
             if (simple_s < 0) simple_s = 1;
@@ -180,7 +174,7 @@ void Vblank()
         njPrintColor(0xCCC0C0C0);
         njPrint(NJM_LOCATION(14, 1), "-- NINJA LIGHT TEST --");
         njPrint(NJM_LOCATION(1, 34), "Controls: ANALOG to rotate model,");
-        njPrint(NJM_LOCATION(1, 35), "TRIGGERS to show unit direction,");
+        njPrint(NJM_LOCATION(1, 35), "TRIGGERS to show LIGHT struct fields,");
         njPrint(NJM_LOCATION(1, 36), "START to change mode, UP / DOWN to move cursor,");
         njPrint(NJM_LOCATION(1, 37), "A / B / LEFT / RIGHT to change values");
         njPrint(NJM_LOCATION(1, 38), "X / Y to hide all text");
@@ -195,19 +189,25 @@ void Vblank()
                 njPrint(NJM_LOCATION(1, 7), "X  : %f", lighte_x);
                 njPrint(NJM_LOCATION(1, 8), "Y  : %f", lighte_y);
                 njPrint(NJM_LOCATION(1, 9), "Z  : %f", lighte_z);
+                njPrint(NJM_LOCATION(1, 11), "R  : %f", lighte_r);
+                njPrint(NJM_LOCATION(1, 12), "G  : %f", lighte_g);
+                njPrint(NJM_LOCATION(1, 13), "B  : %f", lighte_b);
+                njPrint(NJM_LOCATION(1, 15), "AMB: %f", lighte_a);
+                njPrint(NJM_LOCATION(1, 16), "DIF: %f", lighte_d);
+                njPrint(NJM_LOCATION(1, 17), "SPC: %f", lighte_s);
             }
             else
             {
                 njPrint(NJM_LOCATION(1, 7), "X  : %f", lighte.vctr.x);
                 njPrint(NJM_LOCATION(1, 8), "Y  : %f", lighte.vctr.y);
                 njPrint(NJM_LOCATION(1, 9), "Z  : %f", lighte.vctr.z);
+                njPrint(NJM_LOCATION(1, 11), "R  : %f", lighte.attr.argb.r);
+                njPrint(NJM_LOCATION(1, 12), "G  : %f", lighte.attr.argb.g);
+                njPrint(NJM_LOCATION(1, 13), "B  : %f", lighte.attr.argb.b);
+                njPrint(NJM_LOCATION(1, 15), "AMB: %f", lighte.attr.iamb);
+                njPrint(NJM_LOCATION(1, 16), "DIF: %f", lighte.attr.idif);
+                njPrint(NJM_LOCATION(1, 17), "SPC: %f", lighte.attr.ispc);
             }
-            njPrint(NJM_LOCATION(1, 11), "R  : %f", lighte.attr.argb.r);
-            njPrint(NJM_LOCATION(1, 12), "G  : %f", lighte.attr.argb.g);
-            njPrint(NJM_LOCATION(1, 13), "B  : %f", lighte.attr.argb.b);
-            njPrint(NJM_LOCATION(1, 15), "AMB: %f", lighte.attr.iamb);
-            njPrint(NJM_LOCATION(1, 16), "DIF: %f", lighte.attr.idif);
-            njPrint(NJM_LOCATION(1, 17), "SPC: %f", lighte.attr.ispc);
             //DIR light
             njPrintC(NJM_LOCATION(1, 20), "LIGHT 2");
             if (!show_true_dir)
@@ -215,33 +215,49 @@ void Vblank()
                 njPrint(NJM_LOCATION(1, 22), "X  : %f", lightd_x);
                 njPrint(NJM_LOCATION(1, 23), "Y  : %f", lightd_y);
                 njPrint(NJM_LOCATION(1, 24), "Z  : %f", lightd_z);
+                njPrint(NJM_LOCATION(1, 26), "R  : %f", lightd_r);
+                njPrint(NJM_LOCATION(1, 27), "G  : %f", lightd_g);
+                njPrint(NJM_LOCATION(1, 28), "B  : %f", lightd_b);
+                njPrint(NJM_LOCATION(1, 30), "AMB: %f", lightd_a);
+                njPrint(NJM_LOCATION(1, 31), "DIF: %f", lightd_d);
+                njPrint(NJM_LOCATION(1, 32), "SPC: %f", lightd_s);
             }
             else
             {
                 njPrint(NJM_LOCATION(1, 22), "X  : %f", lightd.vctr.x);
                 njPrint(NJM_LOCATION(1, 23), "Y  : %f", lightd.vctr.y);
                 njPrint(NJM_LOCATION(1, 24), "Z  : %f", lightd.vctr.z);
+                njPrint(NJM_LOCATION(1, 26), "R  : %f", lightd.attr.argb.r);
+                njPrint(NJM_LOCATION(1, 27), "G  : %f", lightd.attr.argb.g);
+                njPrint(NJM_LOCATION(1, 28), "B  : %f", lightd.attr.argb.b);
+                njPrint(NJM_LOCATION(1, 30), "AMB: %f", lightd.attr.iamb);
+                njPrint(NJM_LOCATION(1, 31), "DIF: %f", lightd.attr.idif);
+                njPrint(NJM_LOCATION(1, 32), "SPC: %f", lightd.attr.ispc);
             }
-            njPrint(NJM_LOCATION(1, 26), "R  : %f", lightd.attr.argb.r);
-            njPrint(NJM_LOCATION(1, 27), "G  : %f", lightd.attr.argb.g);
-            njPrint(NJM_LOCATION(1, 28), "B  : %f", lightd.attr.argb.b);
-            njPrint(NJM_LOCATION(1, 30), "AMB: %f", lightd.attr.iamb);
-            njPrint(NJM_LOCATION(1, 31), "DIF: %f", lightd.attr.idif);
-            njPrint(NJM_LOCATION(1, 32), "SPC: %f", lightd.attr.ispc);
+ 
         }
         //Simple mode
         else if (mode == 1)
         {
             njPrintC(NJM_LOCATION(1, 5), "SIMPLE LIGHT");
-            njPrint(NJM_LOCATION(1, 7), "X  : %f", simple_x);
-            njPrint(NJM_LOCATION(1, 8), "Y  : %f", simple_y);
-            njPrint(NJM_LOCATION(1, 9), "Z  : %f", simple_z);
-            njPrint(NJM_LOCATION(1, 11), "R  : %f", simple.attr.argb.r);
-            njPrint(NJM_LOCATION(1, 12), "G  : %f", simple.attr.argb.g);
-            njPrint(NJM_LOCATION(1, 13), "B  : %f", simple.attr.argb.b);
-            njPrint(NJM_LOCATION(1, 15), "AMB: %f", simple.attr.iamb);
-            njPrint(NJM_LOCATION(1, 16), "DIF: %f", simple.attr.idif);
-            njPrint(NJM_LOCATION(1, 17), "SPC: %f", simple.attr.ispc);
+            if (!show_true_dir)
+            {
+                njPrint(NJM_LOCATION(1, 7), "X  : %f", simple_x);
+                njPrint(NJM_LOCATION(1, 8), "Y  : %f", simple_y);
+                njPrint(NJM_LOCATION(1, 9), "Z  : %f", simple_z);
+                njPrint(NJM_LOCATION(1, 11), "AMB: %f", simple_a);
+                njPrint(NJM_LOCATION(1, 12), "DIF: %f", simple_d);
+                njPrint(NJM_LOCATION(1, 13), "SPC: %f", simple_s);
+            }
+            else
+            {
+                njPrint(NJM_LOCATION(1, 7), "X  : %f", simple.vctr.x);
+                njPrint(NJM_LOCATION(1, 8), "Y  : %f", simple.vctr.y);
+                njPrint(NJM_LOCATION(1, 9), "Z  : %f", simple.vctr.z);
+                njPrint(NJM_LOCATION(1, 11), "AMB: %f", simple.attr.iamb);
+                njPrint(NJM_LOCATION(1, 12), "DIF: %f", simple.attr.idif);
+                njPrint(NJM_LOCATION(1, 13), "SPC: %f", simple.attr.ispc);
+            }
         }
         //Easy mode
         else if (mode == 2)
@@ -304,7 +320,8 @@ Sint32 njUserMain(void)
         njSetLightIntensity(&simple, simple_s, simple_d, simple_a);
         njSetLightDirection(&simple, simple_x, simple_y, simple_z);
     }
-    if (mode != 2) njDrawObject(OBJECT);
+    if (!mode) njDrawObject(OBJECT);
+    else if (mode == 1) njSimpleDrawObject(OBJECT);
     else
     {
         njSetEasyLight(easy_x, easy_y, easy_z);
